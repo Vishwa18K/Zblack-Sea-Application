@@ -5,6 +5,7 @@ const originalRequire = require;
 const requireFromDisk = createRequire(__filename);
 const { spawn } = require('child_process');
 const path = require('path');
+const os = require('os');
 
 global.require = (name) => {
   try {
@@ -13,6 +14,7 @@ global.require = (name) => {
     return requireFromDisk(name);
   }
 };
+
 
 
 for (const ele of process.argv) {
@@ -28,3 +30,27 @@ for (const ele of process.argv) {
     }
   }
 }
+
+//  Debugger test code  //
+function add(a, b) {
+  debugger;
+  return a + b;
+}
+debugger;
+for (let i = 0; i < 3; i++) {
+  const result = add(i, i * 2);
+  console.log(`add(${i}, ${i * 2}) = ${result}`);
+}
+
+//  Debugger test code  //
+debugger;
+function add(a, b) {
+  return a + b;
+}
+
+for (let i = 0; i < 3; i++) {
+  debugger;
+  const result = add(i, i * 2);
+  console.log(`add(${i}, ${i * 2}) = ${result}`);
+}
+//  End Debugger test code //
